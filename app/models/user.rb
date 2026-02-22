@@ -15,7 +15,7 @@ class User < ApplicationRecord
   # validates :agreement, acceptance: { accept: 'yes' }
   validates :agreement, acceptance: { on: :create }
 
-  # validates :email, confirmation: true
+  validates :email, confirmation: true
 
   #dm欄にチェックした場合にのみ、メールアドレスを必須
   validates :email,

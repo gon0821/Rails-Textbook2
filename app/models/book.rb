@@ -16,13 +16,12 @@ class Book < ApplicationRecord
   has_many :users, through: :reviews
   has_many :memos, as: :memoable
 
-=begin
   validates :isbn,
-    presence: true,
-    uniqueness: true,
-    length: { is: 17 },
-    format: { with: /\A978-4-[0-9]{2,5}-[0-9]{2,5}-[0-9X]\z/ }
-=end
+    # presence: true,
+    presence: { message: 'は必須です'},
+    uniqueness: { allow_blank: true },
+    length: { is: 17, allow_blank: true },
+    format: { with: /\A978-4-[0-9]{2,5}-[0-9]{2,5}-[0-9X]\z/, allow_blank: true }
 
 =begin
   #空白時に検証をスキップする
@@ -33,15 +32,15 @@ class Book < ApplicationRecord
   format: { with: /\A978-4-[0-9]{2,7}-[0-9]{1,6}-[0-9X]{1}\z/, allow_blank: true }
 =end
 
-  # validates :title,
-  #   presence: true,
-  #   length: { minimum: 1, maximum: 100 }
+  validates :title,
+    presence: true,
+    length: { minimum: 1, maximum: 100, allow_blank: true }
 
-  # validates :price,
-  #   numericality: { only_integer: true, less_than: 10000 }
+  validates :price,
+    numericality: { only_integer: true, less_than: 10000 }
 
-  # validates :publisher,
-  #   inclusion:{ in: ['技術評論社', '翔泳社', 'SBクリエイティブ', '日経BP', '森北出版'] }
+  validates :publisher,
+    inclusion:{ in: ['技術評論社', '翔泳社', 'SBクリエイティブ', '日経BP', '森北出版'] }
 
   # validates :title, uniqueness: { scope: :publisher }
 
@@ -70,7 +69,7 @@ class Book < ApplicationRecord
   # validate :isbn_valid?
 
   #コールバックメソッド
-  # after_destroy :history_book
+  after_destroy :history_book
 
   # 条件付きでコールバックを適用
   # after_destroy :history_book,

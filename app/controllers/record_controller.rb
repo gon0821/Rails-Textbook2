@@ -353,7 +353,7 @@ class RecordController < ApplicationController
   end
 
   def belongs
-    @review = Review.find(1)
+    @review = Review.find(3)
   end
 
   def hasmany

@@ -9,8 +9,8 @@ class Review < ApplicationRecord
   # キャッシュの依存性を設定
   # belongs_to :book, touch: true
 
-  belongs_to :user
-  # belongs_to :user, counter_cache: true
+  # belongs_to :user
+  belongs_to :user, counter_cache: true
 
   # default_scope { order(updated_at: :desc) }
 
